@@ -1,6 +1,6 @@
 import { useMutation } from "blitz"
-import decreaseGeneration from "app/reactors/mutations/decreaseOutput"
-import increaseGeneration from "app/reactors/mutations/increaseOutput"
+import decreaseOutput from "app/reactors/mutations/decreaseOutput"
+import increaseOutput from "app/reactors/mutations/increaseOutput"
 import selfDestroy from "app/reactors/mutations/selfDestroy"
 
 const TriggerButton = ({ onClick, text }) => (
@@ -11,10 +11,25 @@ const TriggerButton = ({ onClick, text }) => (
     <span>{text}</span>
   </button>
 )
-export const User = ({ name = "", role, refetchReactor }) => {
-  const [onDecreaseGeneration] = useMutation(decreaseGeneration)
-  const [onIncreaseGeneration] = useMutation(increaseGeneration)
-  const [onSelfDestroy] = useMutation(selfDestroy)
+export const User = ({ name = "", role, refetchReactor, refetchAccessLogs }) => {
+  const [triggerIncreaseOutput] = useMutation(increaseOutput)
+  const [triggerDecreaseOutput] = useMutation(decreaseOutput)
+  const [triggerSelfDestroy] = useMutation(selfDestroy)
+
+  const onGenerateMore = async () => {
+    await triggerIncreaseOutput()
+    refetchReactor()
+  }
+
+  const onGenerateLess = async () => {
+    await triggerDecreaseOutput()
+    refetchReactor()
+  }
+
+  const onSelfDestroy = async () => {
+    await triggerSelfDestroy()
+    refetchReactor()
+  }
 
   return (
     <div className="panel relative flex-1 py-3 sm:max-w-xl sm:mx-auto">
@@ -27,29 +42,10 @@ export const User = ({ name = "", role, refetchReactor }) => {
           </div>
           <div className="divide-y divide-gray-200">
             <div className="pt-4 flex flex-1 flex-col space-y-4">
-              <TriggerButton
-                onClick={async () => {
-                  await onIncreaseGeneration()
-                  refetchReactor()
-                }}
-                text="Generate more"
-              />
-              <TriggerButton
-                onClick={async () => {
-                  await onDecreaseGeneration()
-                  refetchReactor()
-                }}
-                text="Generate less"
-              />
-              <TriggerButton onClick={() => console.log("NOT IMPLEMENTED")} text="Read" />
-              <TriggerButton
-                className=""
-                onClick={async () => {
-                  await onSelfDestroy()
-                  refetchReactor()
-                }}
-                text="Self destroy"
-              />
+              <TriggerButton onClick={onGenerateMore} text="Generate more" />
+              <TriggerButton onClick={onGenerateLess} text="Generate less" />
+              <TriggerButton onClick={refetchAccessLogs} text="Read access logs" />
+              <TriggerButton onClick={onSelfDestroy} text="Self destroy" />
             </div>
           </div>
         </div>
