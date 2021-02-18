@@ -8,4 +8,5 @@ body {
   font-family: "Orbitron";
   font-size: 16px;
   background: #14121f;
+  overflow-y: hidden;
 }

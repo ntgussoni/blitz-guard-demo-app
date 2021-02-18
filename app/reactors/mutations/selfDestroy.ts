@@ -1,9 +1,10 @@
+import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 import db, { Reactor } from "db"
 
 const reactorId = 1
 
-export default async function selfDestroy(_: null, ctx: Ctx) {
+async function selfDestroy(_: null, ctx: Ctx) {
   ctx.session.authorize()
 
   const { selfDestroy } = (await db.reactor.findFirst({ where: { id: reactorId } })) as Reactor
@@ -15,3 +16,5 @@ export default async function selfDestroy(_: null, ctx: Ctx) {
 
   return reactor
 }
+
+export default Guard.authorize("self_destroy", "reactor", selfDestroy)

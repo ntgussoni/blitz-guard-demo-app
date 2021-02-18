@@ -1,6 +1,7 @@
+import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 
-export default async function readAccessLogs(_: null, ctx: Ctx) {
+async function readAccessLogs(_: null, ctx: Ctx) {
   ctx.session.authorize()
 
   return {
@@ -20,3 +21,5 @@ export default async function readAccessLogs(_: null, ctx: Ctx) {
 		`,
   }
 }
+
+export default Guard.authorize("read_access_log", "reactor", readAccessLogs)

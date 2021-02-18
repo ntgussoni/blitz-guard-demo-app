@@ -6,6 +6,8 @@ declare module "blitz" {
     session: SessionContext
   }
   export interface PublicData extends DefaultPublicData {
+    name: User["name"]
     userId: User["id"]
+    impersonatingFromUserId?: number
   }
 }

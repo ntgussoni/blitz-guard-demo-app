@@ -6,6 +6,7 @@ import React, { Suspense, useEffect, useState } from "react"
 import readData from "app/reactors/queries/readData"
 import readAccessLogs from "app/reactors/queries/readAccessLogs"
 import { UsersList } from "../components/UsersList"
+import { Actions } from "app/components/Actions"
 
 const DynamicReactorCore = dynamic(() => import("app/components/ReactorCore"), { ssr: false })
 
@@ -88,12 +89,12 @@ const Home: BlitzPage = () => {
       )}
 
       {accessLogs && (
-        <span className="absolute bg-opacity-75 transform -translate-y-1/2 -translate-x-1/2 top-1/2 left-1/2 text-white p-4 bg-black bold text-xs font-mono w-full flex justify-center">
+        <span className="absolute bg-opacity-75 z-10 transform -translate-y-1/3 -translate-x-1/2 top-1/2 left-1/2 text-white p-4 bg-black bold text-xs font-mono w-full flex justify-center">
           {accessLogs.foo}
         </span>
       )}
 
-      <div className="text-2xl absolute z-10 top-0 left-0 w-full flex space-x-1 items-center p-2 ">
+      <div className="text-2xl absolute z-10 top-8 left-0 w-full flex space-x-1 items-center p-2 ">
         <span className="font-bold mr-4">ENERGY</span>
         {energyMeter.map((i) => (
           <span
@@ -101,6 +102,14 @@ const Home: BlitzPage = () => {
           ></span>
         ))}
         <span className="ml-4"> {reactor?.generationMw}Mwh</span>
+      </div>
+
+      <div className="absolute z-10 top-16 left-0  flex space-x-3 w-60 px-2 text-xs">
+        <Actions
+          reactor={reactor}
+          refetchReactor={refetchReactor}
+          refetchAccessLogs={refetchAccessLogs}
+        />
       </div>
 
       <div className="absolute z-10 bottom-0 left-0  flex space-x-3 w-full px-2 text-xs">
