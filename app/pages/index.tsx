@@ -55,21 +55,35 @@ const UserInfo = () => {
   }
 }
 
+const AccessLog = () => {
+  const [accessLogs, { isError }] = useQuery(readAccessLogs, null)
+
+  if (isError) return null
+
+  return (
+    <span className="absolute bg-opacity-75 z-10 transform -translate-y-1/3 -translate-x-1/2 top-1/2 left-1/2 text-white p-4 bg-black bold text-xs font-mono w-full flex justify-center">
+      {accessLogs.foo}
+    </span>
+  )
+}
+
 const Home: BlitzPage = () => {
   const [counter, setCounter] = useState(60)
+  const [showAccess, setShowAccess] = useState(false)
   const [reactor, { refetch: refetchReactor }] = useQuery(readData, null)
-  const [accessLogs, { refetch: refetchAccessLogs }] = useQuery(readAccessLogs, null, {
-    enabled: false,
-  })
 
+  const toggleAccessLogs = () => {
+    setShowAccess((prev) => !prev)
+  }
   useEffect(() => {
     setCounter(60)
   }, [reactor?.selfDestroy])
 
   useEffect(() => {
-    const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000)
+    const timer =
+      reactor?.selfDestroy && counter > 0 && setInterval(() => setCounter(counter - 1), 1000)
     return () => clearInterval(timer)
-  }, [counter])
+  }, [counter, reactor?.selfDestroy])
 
   if (!reactor) return null
 
@@ -88,11 +102,7 @@ const Home: BlitzPage = () => {
         </span>
       )}
 
-      {accessLogs && (
-        <span className="absolute bg-opacity-75 z-10 transform -translate-y-1/3 -translate-x-1/2 top-1/2 left-1/2 text-white p-4 bg-black bold text-xs font-mono w-full flex justify-center">
-          {accessLogs.foo}
-        </span>
-      )}
+      {showAccess && <AccessLog></AccessLog>}
 
       <div className="text-2xl absolute z-10 top-8 left-0 w-full flex space-x-1 items-center p-2 ">
         <span className="font-bold mr-4">ENERGY</span>
@@ -108,15 +118,12 @@ const Home: BlitzPage = () => {
         <Actions
           reactor={reactor}
           refetchReactor={refetchReactor}
-          refetchAccessLogs={refetchAccessLogs}
+          toggleAccessLogs={toggleAccessLogs}
         />
       </div>
 
       <div className="absolute z-10 bottom-0 left-0  flex space-x-3 w-full px-2 text-xs">
-        <UsersList
-          refetchReactor={refetchReactor}
-          refetchAccessLogs={refetchAccessLogs}
-        ></UsersList>
+        <UsersList refetchReactor={refetchReactor} toggleAccessLogs={toggleAccessLogs}></UsersList>
       </div>
     </div>
   )

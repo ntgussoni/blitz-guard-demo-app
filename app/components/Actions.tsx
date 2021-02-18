@@ -12,7 +12,7 @@ const TriggerButton = ({ onClick, text }) => (
     <span>{text}</span>
   </button>
 )
-export const Actions = ({ reactor, refetchReactor, refetchAccessLogs }) => {
+export const Actions = ({ reactor, refetchReactor, toggleAccessLogs }) => {
   const [[canReadAccessLogs, canIncreaseReactor, canDecreaseReactor, canSelfDestroy]] = useQuery(
     getAbility,
     [
@@ -53,7 +53,7 @@ export const Actions = ({ reactor, refetchReactor, refetchAccessLogs }) => {
                 <TriggerButton onClick={onGenerateLess} text="Generate less" />
               )}
               {canReadAccessLogs && (
-                <TriggerButton onClick={refetchAccessLogs} text="Read access logs" />
+                <TriggerButton onClick={toggleAccessLogs} text="Read access logs" />
               )}
               {canSelfDestroy && <TriggerButton onClick={onSelfDestroy} text="Self destroy" />}
             </div>
