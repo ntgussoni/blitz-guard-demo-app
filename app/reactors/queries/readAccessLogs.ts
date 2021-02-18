@@ -1,9 +1,6 @@
-import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 
 async function readAccessLogs(_: null, ctx: Ctx) {
-  ctx.session.authorize()
-
   return {
     foo: `
 		13.66.139.0 - - [19/Dec/2020:13:57:26 +0100] "GET /index.php?option=com_phocagallery&view=category&id=1:almhuette-raith&Itemid=53 HTTP/1.1" 200 32653 "-" "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)" "-"
@@ -22,4 +19,4 @@ async function readAccessLogs(_: null, ctx: Ctx) {
   }
 }
 
-export default Guard.authorize("read_access_log", "reactor", readAccessLogs)
+export default readAccessLogs

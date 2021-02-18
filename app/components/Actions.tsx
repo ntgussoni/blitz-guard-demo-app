@@ -1,8 +1,6 @@
-import { useMutation, useQuery } from "blitz"
+import { useMutation } from "blitz"
 import selfDestroy from "app/reactors/mutations/selfDestroy"
 import updateOutput from "app/reactors/mutations/updateOutput"
-import Guard from "app/guard/ability"
-import getAbility from "app/guard/queries/getAbility"
 
 const TriggerButton = ({ onClick, text }) => (
   <button
@@ -13,15 +11,6 @@ const TriggerButton = ({ onClick, text }) => (
   </button>
 )
 export const Actions = ({ reactor, refetchReactor, toggleAccessLogs }) => {
-  const [[canReadAccessLogs, canIncreaseReactor, canDecreaseReactor, canSelfDestroy]] = useQuery(
-    getAbility,
-    [
-      ["read_access_log", "reactor"],
-      ["control", "reactor", { data: { generationMw: reactor.generationMw + 100 } }],
-      ["control", "reactor", { data: { generationMw: reactor.generationMw - 100 } }],
-      ["self_destroy", "reactor"],
-    ]
-  )
   const [triggerUpdateOutput] = useMutation(updateOutput)
   const [triggerSelfDestroy] = useMutation(selfDestroy)
 
@@ -46,16 +35,10 @@ export const Actions = ({ reactor, refetchReactor, toggleAccessLogs }) => {
         <div className="max-w-md mx-auto px-1 py-2">
           <div className="divide-y divide-gray-200">
             <div className="pt-4 flex flex-1 flex-col space-y-4">
-              {canIncreaseReactor && (
-                <TriggerButton onClick={onGenerateMore} text="Generate more" />
-              )}
-              {canDecreaseReactor && (
-                <TriggerButton onClick={onGenerateLess} text="Generate less" />
-              )}
-              {canReadAccessLogs && (
-                <TriggerButton onClick={toggleAccessLogs} text="Read access logs" />
-              )}
-              {canSelfDestroy && <TriggerButton onClick={onSelfDestroy} text="Self destroy" />}
+              <TriggerButton onClick={onGenerateMore} text="Generate more" />
+              <TriggerButton onClick={onGenerateLess} text="Generate less" />
+              <TriggerButton onClick={toggleAccessLogs} text="Read access logs" />
+              <TriggerButton onClick={onSelfDestroy} text="Self destroy" />
             </div>
           </div>
         </div>

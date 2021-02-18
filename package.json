@@ -31,7 +31,6 @@
     ]
   },
   "dependencies": {
-    "@blitz-guard/core": "0.3.1",
     "@prisma/cli": "~2.14",
     "@prisma/client": "~2.14",
     "blitz": "0.29.7",
