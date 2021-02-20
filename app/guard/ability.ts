@@ -1,4 +1,3 @@
-import db from "db"
 import { GuardBuilder } from "@blitz-guard/core"
 import { UpdateGenerationInputType } from "app/reactors/mutations/UpdateGenerationInputType"
 
