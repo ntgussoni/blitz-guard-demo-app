@@ -35,7 +35,7 @@ const Home: BlitzPage = () => {
   useEffect(() => {
     const timer =
       reactor?.selfDestroy && counter > 0 && setInterval(() => setCounter(counter - 1), 1000)
-    return () => clearInterval(timer)
+    return () => clearInterval(timer as any)
   }, [counter, reactor?.selfDestroy])
 
   if (!reactor) return null
