@@ -1,3 +1,4 @@
+import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 import db from "db"
 import { UpdateGenerationInputType } from "./UpdateGenerationInputType"
@@ -13,4 +14,4 @@ async function decreaseGeneration({ data: { generationMw } }: UpdateGenerationIn
   return reactor
 }
 
-export default decreaseGeneration
+export default Guard.authorize("control", "reactor", decreaseGeneration)

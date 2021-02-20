@@ -1,3 +1,4 @@
+import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 import db, { Reactor } from "db"
 
@@ -16,4 +17,4 @@ async function selfDestroy(_: null, ctx: Ctx) {
   return reactor
 }
 
-export default selfDestroy
+export default Guard.authorize("self_destroy", "reactor", selfDestroy)

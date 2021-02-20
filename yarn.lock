@@ -506,6 +506,14 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@blitz-guard/core@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@blitz-guard/core/-/core-0.3.1.tgz#9491611df4df1a3b7bf6446973b6db79b8860b60"
+  integrity sha512-bNKQQXAkBIvFJVtxnyTQ/VV8ZKXd79wcfbRD9WM/QnVjK7hw5aAjQYuRj8aSyPeaOOLUYyNIT0LqRR9LLWrSmg==
+  dependencies:
+    runtypes "^5.0.1"
+    tslib "2.1.0"
+
 "@blitzjs/cli@0.29.7":
   version "0.29.7"
   resolved "https://registry.yarnpkg.com/@blitzjs/cli/-/cli-0.29.7.tgz#3241204ef23010ae293b46f5c84223ab60a99de4"
@@ -9451,6 +9459,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
+runtypes@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/runtypes/-/runtypes-5.0.1.tgz#406d140410266f6ece17c3501a37234f91faa346"
+  integrity sha512-+TWVlCmFsgrG4Nd2u+ambpNFO8Yp4heAflGQi9oNj6GRkxZo8aSDBxO1Y0vlKIQCWKKFxato+8Hn67XeAqKhRA==
+
 rxjs@^6.6.3:
   version "6.6.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.3.tgz#8ca84635c4daa900c0d3967a6ee7ac60271ee552"
@@ -10706,15 +10719,15 @@ tsconfig-paths@3.9.0, tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
+tslib@2.1.0, tslib@^2.0.0, tslib@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
+
 tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-
-tslib@^2.0.0, tslib@^2.0.1:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
-  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tslog@^3.1.0:
   version "3.1.1"

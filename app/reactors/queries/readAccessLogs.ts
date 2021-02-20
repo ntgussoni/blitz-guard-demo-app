@@ -1,3 +1,4 @@
+import Guard from "app/guard/ability"
 import { Ctx } from "blitz"
 
 async function readAccessLogs(_: null, ctx: Ctx) {
@@ -19,4 +20,4 @@ async function readAccessLogs(_: null, ctx: Ctx) {
   }
 }
 
-export default readAccessLogs
+export default Guard.authorize("read_access_logs", "reactor", readAccessLogs)
