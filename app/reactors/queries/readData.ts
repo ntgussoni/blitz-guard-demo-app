@@ -1,7 +1,7 @@
 import { Ctx } from "blitz"
 import db from "db"
 
-const reactorId = 1
+const reactorId = 2
 
 export default async function readData(_: null, ctx: Ctx) {
   ctx.session.authorize()

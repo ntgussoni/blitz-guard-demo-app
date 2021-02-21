@@ -21,6 +21,7 @@ model User {
   hashedPassword String?
   role           String    @default("user")
   sessions       Session[]
+  Changes        Changes[]
 }
 
 model Session {
@@ -44,4 +45,15 @@ model Reactor {
   updatedAt    DateTime @updatedAt
   selfDestroy  Boolean  @default(false)
 
+}
+
+model Changes {
+  id        Int      @id @default(autoincrement())
+  modelId   Int
+  modelType String
+  action    String
+  change    String
+  createdAt DateTime @default(now())
+  updatedBy User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 }

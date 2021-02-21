@@ -5,7 +5,9 @@ import readData from "app/reactors/queries/readData"
 import readAccessLogs from "app/reactors/queries/readAccessLogs"
 import { UsersList } from "../components/UsersList"
 import { Actions } from "app/components/Actions"
-
+import getChanges from "app/paper-trail/queries/getChanges"
+import Convert from "ansi-to-html"
+import { Reactor } from "db"
 const DynamicReactorCore = dynamic(() => import("app/components/ReactorCore"), { ssr: false })
 
 const AccessLog = () => {
@@ -24,6 +26,9 @@ const Home: BlitzPage = () => {
   const [counter, setCounter] = useState(60)
   const [showAccess, setShowAccess] = useState(false)
   const [reactor, { refetch: refetchReactor }] = useQuery(readData, null)
+  const [reactorChanges, { refetch: refetchChanges }] = useQuery(getChanges, {
+    data: { model: "reactor", id: (reactor as Reactor).id as number, limit: 1 },
+  })
 
   const toggleAccessLogs = () => {
     setShowAccess((prev) => !prev)
@@ -31,6 +36,10 @@ const Home: BlitzPage = () => {
   useEffect(() => {
     setCounter(60)
   }, [reactor?.selfDestroy])
+
+  useEffect(() => {
+    refetchChanges()
+  }, [reactor, refetchChanges])
 
   useEffect(() => {
     const timer =
@@ -54,7 +63,26 @@ const Home: BlitzPage = () => {
           Self destroying {counter}s
         </span>
       )}
-
+      <div className="absolute z-10 top-20 right-2 w-1/4">
+        {reactorChanges.map((c) => (
+          <div className="flex flex-col bg-white rounded-sm whitespace-pre p-4 font-mono">
+            <span>
+              <b>Record ID:</b> {c.id}
+            </span>
+            <span>
+              <b>Action:</b> {c.action}
+            </span>
+            <span>
+              <b>By user:</b> {c.updatedBy?.name}
+            </span>
+            <br />
+            <span>
+              <b>Diff</b>
+            </span>
+            <div dangerouslySetInnerHTML={{ __html: new Convert().toHtml(c.diff) }}></div>
+          </div>
+        ))}
+      </div>
       {showAccess && <AccessLog></AccessLog>}
       <div className="text-xl absolute z-10 top-9 right-2 text-white font-mono flex space-x-1 items-center p-2 ">
         <svg
