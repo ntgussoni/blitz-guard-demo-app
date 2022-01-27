@@ -43,7 +43,7 @@
     "react-final-form": "6.5.2",
     "react-three-fiber": "5.3.18",
     "tailwindcss": "2",
-    "three": "0.125.2",
+    "three": "0.137.0",
     "typescript": "4.1.5",
     "zod": "1.11.11"
   },
